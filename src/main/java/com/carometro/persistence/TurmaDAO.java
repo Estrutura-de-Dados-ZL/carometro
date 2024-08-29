@@ -4,9 +4,9 @@ import java.sql.SQLException;
 
 import com.carometro.model.Turma;
 
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.Persistence;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 
 public class TurmaDAO implements IDAO<Turma> {
 
@@ -22,7 +22,7 @@ public class TurmaDAO implements IDAO<Turma> {
   }
 
   @Override
-  public Turma buscar(String turmaId) throws SQLException {
+  public Turma buscar(Long turmaId) throws SQLException {
     EntityManager em = mf.createEntityManager();
     em.getTransaction().begin();
     Turma turmaEncontrada = em.find(Turma.class, turmaId);

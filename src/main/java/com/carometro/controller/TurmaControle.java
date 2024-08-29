@@ -14,7 +14,7 @@ public class TurmaControle implements IController<Turma> {
   }
 
   @Override
-  public Turma buscarRegistro(String turmaId) throws SQLException {
+  public Turma buscarRegistro(Long turmaId) throws SQLException {
     return turmaDAO.buscar(turmaId);
   }
 

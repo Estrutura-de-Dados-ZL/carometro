@@ -1,1 +1,16 @@
+<<<<<<< HEAD
 C:\Users\guilh\OneDrive\Área de Trabalho\Fatec\carometro\carometro\src\main\java\com\carometro\Main.java
+=======
+C:\Users\betin\Desktop\carometro-main\src\main\java\com\carometro\controller\IController.java
+C:\Users\betin\Desktop\carometro-main\src\main\java\com\carometro\persistence\IDAO.java
+C:\Users\betin\Desktop\carometro-main\src\main\java\com\carometro\controller\AlunoControle.java
+C:\Users\betin\Desktop\carometro-main\src\main\java\com\carometro\model\Aluno.java
+C:\Users\betin\Desktop\carometro-main\src\main\java\com\carometro\persistence\CursoDAO.java
+C:\Users\betin\Desktop\carometro-main\src\main\java\com\carometro\persistence\TurmaDAO.java
+C:\Users\betin\Desktop\carometro-main\src\main\java\com\carometro\persistence\AlunoDAO.java
+C:\Users\betin\Desktop\carometro-main\src\main\java\com\carometro\Main.java
+C:\Users\betin\Desktop\carometro-main\src\main\java\com\carometro\controller\TurmaControle.java
+C:\Users\betin\Desktop\carometro-main\src\main\java\com\carometro\model\Turma.java
+C:\Users\betin\Desktop\carometro-main\src\main\java\com\carometro\model\Curso.java
+C:\Users\betin\Desktop\carometro-main\src\main\java\com\carometro\controller\CursoControle.java
+>>>>>>> 00a7fc3 (initial commit)

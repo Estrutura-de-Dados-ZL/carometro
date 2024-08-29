@@ -14,7 +14,7 @@ public class AlunoControle implements IController<Aluno> {
   }
 
   @Override
-  public Aluno buscarRegistro(String alunoId) throws SQLException {
+  public Aluno buscarRegistro(Long alunoId) throws SQLException {
     return alunoDAO.buscar(alunoId);
   }
 

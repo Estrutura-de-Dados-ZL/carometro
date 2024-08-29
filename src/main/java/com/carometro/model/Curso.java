@@ -2,36 +2,36 @@ package com.carometro.model;
 
 import java.io.Serializable;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
-@Table(name = "curso")
+//@Table(name = "curso")
 public class Curso implements Serializable {
 
   private static final long serialVersionUID = 1l;
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private String cursoId;
+  private Long cursoId;
   private String cursoNome;
 
   public Curso() {
   }
 
-  public Curso(String cursoId, String cursoNome) {
+  public Curso(Long cursoId, String cursoNome) {
     this.cursoId = cursoId;
     this.cursoNome = cursoNome;
   }
 
-  public String getCursoId() {
+  public Long getCursoId() {
     return cursoId;
   }
 
-  public void setCursoId(String cursoId) {
+  public void setCursoId(Long cursoId) {
     this.cursoId = cursoId;
   }
 

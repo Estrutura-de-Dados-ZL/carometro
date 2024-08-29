@@ -4,9 +4,9 @@ import java.sql.SQLException;
 
 import com.carometro.model.Curso;
 
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.Persistence;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 
 public class CursoDAO implements IDAO<Curso> {
 
@@ -22,7 +22,7 @@ public class CursoDAO implements IDAO<Curso> {
   }
 
   @Override
-  public Curso buscar(String cursoId) throws SQLException {
+  public Curso buscar(Long cursoId) throws SQLException {
     EntityManager em = mf.createEntityManager();
     em.getTransaction().begin();
     Curso cursoEncontrado = em.find(Curso.class, cursoId);

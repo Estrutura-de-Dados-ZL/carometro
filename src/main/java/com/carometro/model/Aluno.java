@@ -1,38 +1,42 @@
 package com.carometro.model;
 
-import java.io.Serial;
+
 import java.io.Serializable;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+import jakarta.persistence.JoinColumn;
 
 @Entity
-@Table(name = "aluno")
+//@Table(name = "aluno")
 public class Aluno implements Serializable {
 
   private static final long serialVersionUID = 1l;
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private String alunoId;
+  private Long alunoId;
   private String alunoNome;
-  private Serial alunoFoto;
+  private String alunoFoto;
   private String alunoLink;
   private String alunoHistorico;
   private String alunoComentario;
   private Boolean alunoPermissao;
 
-  @OneToOne(mappedBy = "turma")
+  @ManyToOne
+  @JoinColumn(name = "turma_turmaId")
   private Turma turma;
 
   public Aluno() {
   }
 
-  public Aluno(String alunoId, String alunoNome, Serial alunoFoto, String alunoLink, String alunoHistorico,
+  public Aluno(Long alunoId, String alunoNome, String alunoFoto, String alunoLink, String alunoHistorico,
       String alunoComentario, Boolean alunoPermissao, Turma turma) {
     this.alunoId = alunoId;
     this.alunoNome = alunoNome;
@@ -44,11 +48,11 @@ public class Aluno implements Serializable {
     this.turma = turma;
   }
 
-  public String getAlunoId() {
+  public Long getAlunoId() {
     return alunoId;
   }
 
-  public void setAlunoId(String alunoId) {
+  public void setAlunoId(Long alunoId) {
     this.alunoId = alunoId;
   }
 
@@ -60,11 +64,11 @@ public class Aluno implements Serializable {
     this.alunoNome = alunoNome;
   }
 
-  public Serial getAlunoFoto() {
+  public String getAlunoFoto() {
     return alunoFoto;
   }
 
-  public void setAlunoFoto(Serial alunoFoto) {
+  public void setAlunoFoto(String alunoFoto) {
     this.alunoFoto = alunoFoto;
   }
 

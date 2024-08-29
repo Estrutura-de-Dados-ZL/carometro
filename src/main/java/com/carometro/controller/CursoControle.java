@@ -14,7 +14,7 @@ public class CursoControle implements IController<Curso> {
   }
 
   @Override
-  public Curso buscarRegistro(String cursoId) throws SQLException {
+  public Curso buscarRegistro(Long cursoId) throws SQLException {
     return cursoDAO.buscar(cursoId);
   }
 

@@ -3,43 +3,43 @@ package com.carometro.model;
 import java.io.Serializable;
 import java.util.Set;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 @Entity
-@Table(name = "turma")
+//@Table(name = "turma")
 public class Turma implements Serializable {
 
   private static final long serialVersionUID = 1l;
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private String turmaId;
+  private Long turmaId;
   private String turmaAno;
   private String turmaSemestre;
 
-  @OneToMany(mappedBy = "turma")
+ @OneToMany(mappedBy = "turma")
   private Set<Aluno> alunos;
 
   public Turma() {
   }
 
-  public Turma(String turmaId, String turmaAno, String turmaSemestre, Set<Aluno> alunos) {
+  public Turma(Long turmaId, String turmaAno, String turmaSemestre, Set<Aluno> alunos) {
     this.turmaId = turmaId;
     this.turmaAno = turmaAno;
     this.turmaSemestre = turmaSemestre;
     this.alunos = alunos;
   }
 
-  public String getTurmaId() {
+  public Long getTurmaId() {
     return turmaId;
   }
 
-  public void setTurmaId(String turmaId) {
+  public void setTurmaId(Long turmaId) {
     this.turmaId = turmaId;
   }
 
