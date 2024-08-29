@@ -1,0 +1,12 @@
+com\carometro\persistence\AlunoDAO.class
+com\carometro\model\Aluno.class
+com\carometro\Main.class
+com\carometro\controller\TurmaControle.class
+com\carometro\controller\CursoControle.class
+com\carometro\controller\AlunoControle.class
+com\carometro\persistence\CursoDAO.class
+com\carometro\model\Turma.class
+com\carometro\persistence\TurmaDAO.class
+com\carometro\model\Curso.class
+com\carometro\controller\IController.class
+com\carometro\persistence\IDAO.class
