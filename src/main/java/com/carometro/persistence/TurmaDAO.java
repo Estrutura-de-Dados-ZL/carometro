@@ -55,7 +55,7 @@ public class TurmaDAO implements IDAO<Turma> {
   @Override
   public List<Turma> listar() throws SQLException {
       EntityManager em = mf.createEntityManager();
-      List<Turma> turmas = em.createQuery("SELECT t FROM Turma t", Turma.class).getResultList();
+      List<Turma> turmas = em.createQuery("SELECT t FROM Turma t JOIN Aluno a ON a.turmaId = t.turmaId", Turma.class).getResultList();
       em.close();
       return turmas;
   }
