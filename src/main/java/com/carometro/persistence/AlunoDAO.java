@@ -1,6 +1,7 @@
 package com.carometro.persistence;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import com.carometro.model.Aluno;
 
@@ -49,5 +50,13 @@ public class AlunoDAO implements IDAO<Aluno> {
     }
     em.getTransaction().commit();
     em.close();
+  }
+
+  @Override
+  public List<Aluno> listar() throws SQLException {
+      EntityManager em = mf.createEntityManager();
+      List<Aluno> alunos = em.createQuery("SELECT a FROM Aluno a", Aluno.class).getResultList();
+      em.close();
+      return alunos;
   }
 }

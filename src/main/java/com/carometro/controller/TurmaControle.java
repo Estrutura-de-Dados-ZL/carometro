@@ -1,6 +1,7 @@
 package com.carometro.controller;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import com.carometro.model.Turma;
 import com.carometro.persistence.TurmaDAO;
@@ -26,5 +27,10 @@ public class TurmaControle implements IController<Turma> {
   @Override
   public void deletarRegistro(Turma turma) throws SQLException {
     turmaDAO.deletar(turma);
+  }
+
+  @Override
+  public List<Turma> buscarTodosRegistros() throws SQLException {
+    return turmaDAO.listar();
   }
 }

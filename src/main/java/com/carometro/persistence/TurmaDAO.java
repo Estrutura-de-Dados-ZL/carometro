@@ -1,6 +1,7 @@
 package com.carometro.persistence;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import com.carometro.model.Turma;
 
@@ -51,4 +52,11 @@ public class TurmaDAO implements IDAO<Turma> {
     em.close();
   }
 
+  @Override
+  public List<Turma> listar() throws SQLException {
+      EntityManager em = mf.createEntityManager();
+      List<Turma> turmas = em.createQuery("SELECT t FROM Turma t", Turma.class).getResultList();
+      em.close();
+      return turmas;
+  }
 }

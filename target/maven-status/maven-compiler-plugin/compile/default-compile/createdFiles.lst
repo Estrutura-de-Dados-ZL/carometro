@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-com\carometro\Main.class
-=======
 com\carometro\persistence\AlunoDAO.class
 com\carometro\model\Aluno.class
 com\carometro\Main.class
@@ -13,4 +10,3 @@ com\carometro\persistence\TurmaDAO.class
 com\carometro\model\Curso.class
 com\carometro\controller\IController.class
 com\carometro\persistence\IDAO.class
->>>>>>> 00a7fc3 (initial commit)

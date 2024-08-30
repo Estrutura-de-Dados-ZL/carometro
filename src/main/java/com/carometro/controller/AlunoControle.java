@@ -1,6 +1,7 @@
 package com.carometro.controller;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import com.carometro.model.Aluno;
 import com.carometro.persistence.AlunoDAO;
@@ -26,5 +27,10 @@ public class AlunoControle implements IController<Aluno> {
   @Override
   public void deletarRegistro(Aluno aluno) throws SQLException {
     alunoDAO.deletar(aluno);
+  }
+
+  @Override
+  public List<Aluno> buscarTodosRegistros() throws SQLException {
+    return alunoDAO.listar();
   }
 }
