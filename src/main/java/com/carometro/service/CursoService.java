@@ -10,7 +10,7 @@ import com.carometro.model.Curso;
 import com.carometro.repository.CursoRepository;
 
 @Service
-public class CursoService implements IService<Curso> {
+public class CursoService implements IService<Curso, Long> {
 
   @Autowired
   private CursoRepository cursoRepository;
@@ -34,7 +34,7 @@ public class CursoService implements IService<Curso> {
   @Override
   public void deletarRegistro(Long id) {
     Curso c = new Curso();
-    c.setCursoId(id);
+    c.setId(id);
 
     cursoRepository.delete(c);
   }

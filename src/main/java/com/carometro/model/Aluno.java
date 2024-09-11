@@ -1,6 +1,7 @@
 package com.carometro.model;
 
 import java.io.Serializable;
+import java.util.List;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -8,8 +9,9 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -25,15 +27,22 @@ public class Aluno implements Serializable {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long alunoId;
-  private String alunoNome;
-  private String alunoFoto;
-  private String alunoLink;
-  private String alunoHistorico;
-  private String alunoComentario;
-  private Boolean alunoPermissao;
+  private Long id;
+  private String nome;
+  private String foto;
+  private String link;
+  private String historico;
+  private Boolean permissao;
 
   @ManyToOne
-  @JoinColumn(name = "turma_turmaId")
+  @JoinColumn(name = "turma_id")
   private Turma turma;
+
+  @OneToOne
+  @JoinColumn(name = "comentario_id")
+  private Comentario comentario;
+
+  @OneToMany
+  @JoinColumn(name = "aluno_id")
+  private List<Experiencia> experiencias;
 }

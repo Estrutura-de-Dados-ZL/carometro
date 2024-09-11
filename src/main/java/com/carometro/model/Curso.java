@@ -23,6 +23,6 @@ public class Curso implements Serializable {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long cursoId;
-  private String cursoNome;
+  private Long id;
+  private String nome;
 }
