@@ -5,9 +5,9 @@ import java.util.List;
 
 import com.carometro.model.Aluno;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.Persistence;
 
 public class AlunoDAO implements IDAO<Aluno> {
 
@@ -54,9 +54,9 @@ public class AlunoDAO implements IDAO<Aluno> {
 
   @Override
   public List<Aluno> listar() throws SQLException {
-      EntityManager em = mf.createEntityManager();
-      List<Aluno> alunos = em.createQuery("SELECT a FROM Aluno a", Aluno.class).getResultList();
-      em.close();
-      return alunos;
+    EntityManager em = mf.createEntityManager();
+    List<Aluno> alunos = em.createQuery("SELECT a FROM Aluno a", Aluno.class).getResultList();
+    em.close();
+    return alunos;
   }
 }

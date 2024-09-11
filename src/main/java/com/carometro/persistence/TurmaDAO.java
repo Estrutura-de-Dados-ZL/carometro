@@ -5,9 +5,9 @@ import java.util.List;
 
 import com.carometro.model.Turma;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.Persistence;
 
 public class TurmaDAO implements IDAO<Turma> {
 
@@ -54,9 +54,10 @@ public class TurmaDAO implements IDAO<Turma> {
 
   @Override
   public List<Turma> listar() throws SQLException {
-      EntityManager em = mf.createEntityManager();
-      List<Turma> turmas = em.createQuery("SELECT t FROM Turma t JOIN Aluno a ON a.turmaId = t.turmaId", Turma.class).getResultList();
-      em.close();
-      return turmas;
+    EntityManager em = mf.createEntityManager();
+    List<Turma> turmas = em.createQuery("SELECT t FROM Turma t JOIN Aluno a ON a.turmaId = t.turmaId", Turma.class)
+        .getResultList();
+    em.close();
+    return turmas;
   }
 }
