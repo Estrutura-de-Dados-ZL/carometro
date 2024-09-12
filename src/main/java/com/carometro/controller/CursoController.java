@@ -43,7 +43,7 @@ public class CursoController {
     return new ResponseEntity<>("Curso atualizado com sucesso!", HttpStatus.OK);
   }
 
-  @PostMapping("path")
+  @PostMapping
   public ResponseEntity<String> criarCurso(@RequestBody Curso curso) {
     cursoService.criarRegistro(curso);
 

@@ -8,6 +8,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinColumns;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
@@ -35,7 +36,11 @@ public class Aluno implements Serializable {
   private Boolean permissao;
 
   @ManyToOne
-  @JoinColumn(name = "turma_id")
+  @JoinColumns({
+    @JoinColumn(name = "curso_id", referencedColumnName = "curso_id"),
+    @JoinColumn(name = "ano", referencedColumnName = "ano"),
+    @JoinColumn(name = "semestre", referencedColumnName = "semestre")
+  })
   private Turma turma;
 
   @OneToOne
