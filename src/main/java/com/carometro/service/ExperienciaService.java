@@ -21,9 +21,9 @@ public class ExperienciaService implements IService<Experiencia, Long> {
   }
 
   @Override
-  public Experiencia buscarRegistro(Long experienciaId) {
+  public Optional<Experiencia> buscarRegistro(Long experienciaId) {
     Optional<Experiencia> experienciaEncontrado = experienciaRepository.findById(experienciaId);
-    return experienciaEncontrado.orElse(null);
+    return experienciaEncontrado;
   }
 
   @Override

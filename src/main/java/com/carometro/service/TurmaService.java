@@ -22,9 +22,9 @@ public class TurmaService implements IService<Turma, TurmaId> {
   }
 
   @Override
-  public Turma buscarRegistro(TurmaId turmaId) {
+  public Optional<Turma> buscarRegistro(TurmaId turmaId) {
     Optional<Turma> turmaEncontrado = turmaRepository.findById(turmaId);
-    return turmaEncontrado.orElse(null);
+    return turmaEncontrado;
   }
 
   @Override

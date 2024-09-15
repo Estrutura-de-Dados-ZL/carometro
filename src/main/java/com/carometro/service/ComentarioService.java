@@ -21,9 +21,9 @@ public class ComentarioService implements IService<Comentario, Long> {
   }
 
   @Override
-  public Comentario buscarRegistro(Long comentarioId) {
+  public Optional<Comentario> buscarRegistro(Long comentarioId) {
     Optional<Comentario> comentarioEncontrado = comentarioRepository.findById(comentarioId);
-    return comentarioEncontrado.orElse(null);
+    return comentarioEncontrado;
   }
 
   @Override

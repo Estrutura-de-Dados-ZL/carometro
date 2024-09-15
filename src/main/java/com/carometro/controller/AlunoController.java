@@ -1,6 +1,7 @@
 package com.carometro.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,8 +16,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.carometro.dto.AlunoDto;
+import com.carometro.dto.ApiRespostaDto;
+import com.carometro.mapper.AlunoMapper;
 import com.carometro.model.Aluno;
+import com.carometro.security.JWTAuthenticationFilter;
+import com.carometro.security.JWTGerador;
 import com.carometro.service.AlunoService;
+
+import jakarta.servlet.http.HttpServletRequest;
 
 @RequestMapping("aluno")
 @RestController
@@ -26,21 +34,61 @@ public class AlunoController {
   @Autowired
   private AlunoService alunoService;
 
+  @Autowired
+  private AlunoMapper alunoMapper;
+
+  @Autowired
+  JWTAuthenticationFilter jwtAuthenticationFilter;
+
+  @Autowired
+  JWTGerador jwtGerador;
+
   @GetMapping("/buscarTodos")
   public ResponseEntity<List<Aluno>> listarAlunos() {
     return new ResponseEntity<>(alunoService.buscarTodosRegistros(), HttpStatus.OK);
   }
 
-  @GetMapping("/{id}")
-  public ResponseEntity<Aluno> buscarAlunoPorId(@PathVariable Long id) {
-    return new ResponseEntity<>(alunoService.buscarRegistro(id), HttpStatus.OK);
+  @GetMapping("/{email}")
+  public ResponseEntity<ApiRespostaDto<Aluno>> buscarAlunoPorId(@PathVariable String email) {
+    Optional<Aluno> aluno = alunoService.buscarRegistro(email);
+
+    if (!aluno.isPresent()) {
+      List<String> mensagensErro = List.of("Aluno não encontrado!");
+      ApiRespostaDto<Aluno> respostaErro = new ApiRespostaDto<>(null, mensagensErro);
+
+      return new ResponseEntity<>(respostaErro, HttpStatus.BAD_REQUEST);
+    }
+
+    List<String> mensagensErro = List.of("Aluno encontrado!");
+    ApiRespostaDto<Aluno> respostaSucesso = new ApiRespostaDto<>(aluno.get(), mensagensErro);
+
+    return new ResponseEntity<>(respostaSucesso, HttpStatus.OK);
   }
 
   @PutMapping
-  public ResponseEntity<String> atualizarAluno(@RequestBody Aluno aluno) {
-    alunoService.atualizarRegistro(aluno);
+  public ResponseEntity<ApiRespostaDto<String>> atualizarAluno(@RequestBody AlunoDto dto, HttpServletRequest request) {
 
-    return new ResponseEntity<>("Aluno atualizado com sucesso!", HttpStatus.OK);
+    Optional<Aluno> aluno = alunoService.buscarRegistro(dto.getEmail());
+
+    String bearerToken = jwtAuthenticationFilter.getJWTFromRequest(request);
+    String email = jwtGerador.getUsernameFromJWT(bearerToken);
+
+    System.out.println("email: " + email);
+
+    if (!aluno.isPresent()) {
+      List<String> mensagensErro = List.of("Aluno não encontrado!");
+      ApiRespostaDto<String> responseErro = new ApiRespostaDto<>(null, mensagensErro);
+
+      return new ResponseEntity<>(responseErro, HttpStatus.BAD_REQUEST);
+    }
+
+    alunoMapper.updateAlunoFromDto(dto, aluno.get());
+    alunoService.atualizarRegistro(aluno.get());
+
+    List<String> mensagensErro = List.of("Aluno atualizado com sucesso!");
+    ApiRespostaDto<String> respostaSucesso = new ApiRespostaDto<>(null, mensagensErro);
+
+    return new ResponseEntity<>(respostaSucesso, HttpStatus.OK);
   }
 
   @PostMapping
@@ -50,9 +98,9 @@ public class AlunoController {
     return new ResponseEntity<>("Aluno criado com sucesso!", HttpStatus.CREATED);
   }
 
-  @DeleteMapping("/{id}")
-  public ResponseEntity<String> deletarAluno(@PathVariable Long id) {
-    alunoService.deletarRegistro(id);
+  @DeleteMapping("/{email}")
+  public ResponseEntity<String> deletarAluno(@PathVariable String email) {
+    alunoService.deletarRegistro(email);
 
     return new ResponseEntity<>("Aluno excluído com sucesso!", HttpStatus.OK);
   }

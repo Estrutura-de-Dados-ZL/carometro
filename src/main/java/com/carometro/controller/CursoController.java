@@ -1,6 +1,7 @@
 package com.carometro.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.carometro.dto.ApiRespostaDto;
 import com.carometro.model.Curso;
 import com.carometro.service.CursoService;
 
@@ -32,8 +34,20 @@ public class CursoController {
   }
 
   @GetMapping("/{id}")
-  public ResponseEntity<Curso> buscarCursoPorId(@PathVariable Long id) {
-    return new ResponseEntity<>(cursoService.buscarRegistro(id), HttpStatus.OK);
+  public ResponseEntity<ApiRespostaDto<Curso>> buscarCursoPorId(@PathVariable Long id) {
+    Optional<Curso> comentario = cursoService.buscarRegistro(id);
+
+    if (!comentario.isPresent()) {
+      List<String> mensagensErro = List.of("Curso não encontrado!");
+      ApiRespostaDto<Curso> respostaErro = new ApiRespostaDto<>(null, mensagensErro);
+
+      return new ResponseEntity<>(respostaErro, HttpStatus.BAD_REQUEST);
+    }
+
+    List<String> mensagensErro = List.of("Curso encontrado!");
+    ApiRespostaDto<Curso> respostaSucesso = new ApiRespostaDto<>(comentario.get(), mensagensErro);
+
+    return new ResponseEntity<>(respostaSucesso, HttpStatus.OK);
   }
 
   @PutMapping
@@ -55,10 +69,5 @@ public class CursoController {
     cursoService.deletarRegistro(id);
 
     return new ResponseEntity<>("Curso excluído com sucesso!", HttpStatus.OK);
-  }
-
-  @GetMapping
-  public ResponseEntity<String> teste() {
-    return new ResponseEntity<>("Curso TESTEEEE com sucesso!", HttpStatus.OK);
   }
 }

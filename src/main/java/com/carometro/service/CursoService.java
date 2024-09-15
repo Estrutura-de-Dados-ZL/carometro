@@ -21,9 +21,9 @@ public class CursoService implements IService<Curso, Long> {
   }
 
   @Override
-  public Curso buscarRegistro(Long cursoId) {
+  public Optional<Curso> buscarRegistro(Long cursoId) {
     Optional<Curso> cursoEncontrado = cursoRepository.findById(cursoId);
-    return cursoEncontrado.orElse(null);
+    return cursoEncontrado;
   }
 
   @Override
