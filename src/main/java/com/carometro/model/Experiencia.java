@@ -7,7 +7,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,8 +15,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 @Entity
-@Table(name = "curso")
-public class Curso implements Serializable {
+@Table(name = "experiencia")
+public class Experiencia implements Serializable {
 
   private static final long serialVersionUID = 1l;
 
@@ -25,4 +24,7 @@ public class Curso implements Serializable {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
   private String nome;
+  private String funcao;
+  private String inicio;
+  private String fim;
 }

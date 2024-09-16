@@ -2,8 +2,10 @@ package com.carometro.model;
 
 import java.io.Serializable;
 
-import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,11 +15,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 @Entity
-@Table(name = "turma")
-public class Turma implements Serializable {
+@Table(name = "comentario")
+public class Comentario implements Serializable {
 
   private static final long serialVersionUID = 1l;
 
-  @EmbeddedId
-  private TurmaId id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
+  private String texto;
 }
