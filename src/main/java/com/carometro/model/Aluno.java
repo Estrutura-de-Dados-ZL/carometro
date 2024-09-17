@@ -4,13 +4,11 @@ import java.io.Serializable;
 import java.util.List;
 
 import jakarta.persistence.Column;
-import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinColumns;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -30,9 +28,10 @@ public class Aluno extends Usuario implements Serializable {
 
   private String foto;
   private String link;
-  private String historico;
-  private Boolean permissao;
-  private Boolean verificado;
+  private String comentario;
+  private String campoLivre;
+  private Boolean permissaoDados;
+  private Boolean pendente;
 
   @ManyToOne
   @JoinColumns({
@@ -42,11 +41,7 @@ public class Aluno extends Usuario implements Serializable {
   })
   private Turma turma;
 
-  @OneToOne
-  @JoinColumn(name = "comentario_id")
-  private Comentario comentario;
-
   @OneToMany
   @JoinColumn(name = "aluno_id")
-  private List<Experiencia> experiencias;
+  private List<ExperienciaAluno> experiencias;
 }

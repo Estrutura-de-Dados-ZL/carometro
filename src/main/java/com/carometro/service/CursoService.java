@@ -33,10 +33,10 @@ public class CursoService implements IService<Curso, Long> {
 
   @Override
   public void deletarRegistro(Long id) {
-    Curso c = new Curso();
-    c.setId(id);
+    Curso curso = new Curso();
+    curso.setId(id);
 
-    cursoRepository.delete(c);
+    cursoRepository.delete(curso);
   }
 
   @Override

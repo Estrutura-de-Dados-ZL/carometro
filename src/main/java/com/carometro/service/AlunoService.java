@@ -42,10 +42,10 @@ public class AlunoService implements IService<Aluno, String> {
 
   @Override
   public void deletarRegistro(String email) {
-    Aluno t = new Aluno();
-    t.setEmail(email);
+    Aluno aluno = new Aluno();
+    aluno.setEmail(email);
 
-    alunoRepository.delete(t);
+    alunoRepository.delete(aluno);
   }
 
   @Override

@@ -17,56 +17,56 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.carometro.dto.ApiRespostaDto;
-import com.carometro.model.Experiencia;
-import com.carometro.service.ExperienciaService;
+import com.carometro.model.ExperienciaAluno;
+import com.carometro.service.ExperienciaAlunoService;
 
 @RequestMapping("experiencia")
 @RestController
 @CrossOrigin(origins = { "http://localhost:4200" })
-public class ExperienciaController {
+public class ExperienciaAlunoController {
 
   @Autowired
-  private ExperienciaService experienciaService;
+  private ExperienciaAlunoService experienciaAlunoService;
 
   @GetMapping("/buscarTodos")
-  public ResponseEntity<List<Experiencia>> listarExperiencias() {
-    return new ResponseEntity<>(experienciaService.buscarTodosRegistros(), HttpStatus.OK);
+  public ResponseEntity<List<ExperienciaAluno>> listarExperiencias() {
+    return new ResponseEntity<>(experienciaAlunoService.buscarTodosRegistros(), HttpStatus.OK);
   }
 
   @GetMapping("/{id}")
-  public ResponseEntity<ApiRespostaDto<Experiencia>> buscarExperienciaPorId(@PathVariable Long id) {
-    Optional<Experiencia> experiencia = experienciaService.buscarRegistro(id);
+  public ResponseEntity<ApiRespostaDto<ExperienciaAluno>> buscarExperienciaPorId(@PathVariable Long id) {
+    Optional<ExperienciaAluno> experienciaAluno = experienciaAlunoService.buscarRegistro(id);
 
-    if (!experiencia.isPresent()) {
+    if (!experienciaAluno.isPresent()) {
       List<String> mensagensErro = List.of("Experiência não encontrado!");
-      ApiRespostaDto<Experiencia> respostaErro = new ApiRespostaDto<>(null, mensagensErro);
+      ApiRespostaDto<ExperienciaAluno> respostaErro = new ApiRespostaDto<>(null, mensagensErro);
 
       return new ResponseEntity<>(respostaErro, HttpStatus.BAD_REQUEST);
     }
 
     List<String> mensagensErro = List.of("Experiência encontrado!");
-    ApiRespostaDto<Experiencia> respostaSucesso = new ApiRespostaDto<>(experiencia.get(), mensagensErro);
+    ApiRespostaDto<ExperienciaAluno> respostaSucesso = new ApiRespostaDto<>(experienciaAluno.get(), mensagensErro);
 
     return new ResponseEntity<>(respostaSucesso, HttpStatus.OK);
   }
 
   @PutMapping
-  public ResponseEntity<String> atualizarExperiencia(@RequestBody Experiencia experiencia) {
-    experienciaService.atualizarRegistro(experiencia);
+  public ResponseEntity<String> atualizarExperiencia(@RequestBody ExperienciaAluno experienciaAluno) {
+    experienciaAlunoService.atualizarRegistro(experienciaAluno);
 
     return new ResponseEntity<>("Experiência atualizada com sucesso!", HttpStatus.OK);
   }
 
   @PostMapping
-  public ResponseEntity<String> criarExperiencia(@RequestBody Experiencia experiencia) {
-    experienciaService.criarRegistro(experiencia);
+  public ResponseEntity<String> criarExperiencia(@RequestBody ExperienciaAluno experienciaAluno) {
+    experienciaAlunoService.criarRegistro(experienciaAluno);
 
     return new ResponseEntity<>("Experiência criada com sucesso!", HttpStatus.CREATED);
   }
 
   @DeleteMapping("/{id}")
   public ResponseEntity<String> deletarExperiencia(@PathVariable Long id) {
-    experienciaService.deletarRegistro(id);
+    experienciaAlunoService.deletarRegistro(id);
 
     return new ResponseEntity<>("Experiência excluída com sucesso!", HttpStatus.OK);
   }

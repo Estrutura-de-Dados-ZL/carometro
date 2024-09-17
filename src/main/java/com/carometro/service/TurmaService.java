@@ -34,10 +34,10 @@ public class TurmaService implements IService<Turma, TurmaId> {
 
   @Override
   public void deletarRegistro(TurmaId id) {
-    Turma t = new Turma();
-    t.setId(id);
+    Turma turma = new Turma();
+    turma.setId(id);
 
-    turmaRepository.delete(t);
+    turmaRepository.delete(turma);
   }
 
   @Override

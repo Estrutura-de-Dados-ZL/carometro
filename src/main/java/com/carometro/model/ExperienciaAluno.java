@@ -15,13 +15,16 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 @Entity
-@Table(name = "comentario")
-public class Comentario implements Serializable {
+@Table(name = "experiencia")
+public class ExperienciaAluno implements Serializable {
 
   private static final long serialVersionUID = 1l;
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
-  private String texto;
+  private String nome;
+  private String funcao;
+  private String inicio;
+  private String fim;
 }

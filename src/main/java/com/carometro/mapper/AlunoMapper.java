@@ -15,7 +15,6 @@ public interface AlunoMapper {
 
   @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
   @Mapping(target = "roles", ignore = true)
-  @Mapping(target = "comentario", ignore = true)
   @Mapping(target = "experiencias", ignore = true)
   @Mapping(target = "turma", ignore = true)
   void updateAlunoFromDto(AlunoDto dto, @MappingTarget Aluno aluno);

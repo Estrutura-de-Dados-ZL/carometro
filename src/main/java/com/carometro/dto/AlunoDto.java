@@ -20,7 +20,8 @@ public class AlunoDto {
   private String senha;
   private String foto;
   private String link;
-  private String historico;
-  private Boolean permissao;
-  private Boolean verificado;
+  private String comentario;
+  private String campoLivre;
+  private Boolean permissaoDados;
+  private Boolean pendente;
 }
