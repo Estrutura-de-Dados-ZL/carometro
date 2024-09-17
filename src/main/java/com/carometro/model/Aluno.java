@@ -24,7 +24,7 @@ public class Aluno extends Usuario implements Serializable {
   private static final long serialVersionUID = 1l;
 
   @Column(unique = true)
-  private Long ra;
+  private String ra;
 
   private String foto;
   private String link;

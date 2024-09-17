@@ -20,11 +20,11 @@ import com.carometro.dto.AlunoDto;
 import com.carometro.dto.ApiRespostaDto;
 import com.carometro.mapper.AlunoMapper;
 import com.carometro.model.Aluno;
-import com.carometro.security.JWTAuthenticationFilter;
 import com.carometro.security.JWTGerador;
 import com.carometro.service.AlunoService;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 
 @RequestMapping("aluno")
 @RestController
@@ -36,9 +36,6 @@ public class AlunoController {
 
   @Autowired
   private AlunoMapper alunoMapper;
-
-  @Autowired
-  JWTAuthenticationFilter jwtAuthenticationFilter;
 
   @Autowired
   JWTGerador jwtGerador;
@@ -66,14 +63,10 @@ public class AlunoController {
   }
 
   @PutMapping
-  public ResponseEntity<ApiRespostaDto<String>> atualizarAluno(@RequestBody AlunoDto dto, HttpServletRequest request) {
+  public ResponseEntity<ApiRespostaDto<String>> atualizarAluno(@Valid @RequestBody(required = false) AlunoDto dto,
+      HttpServletRequest request) {
 
     Optional<Aluno> aluno = alunoService.buscarRegistro(dto.getEmail());
-
-    String bearerToken = jwtAuthenticationFilter.getJWTFromRequest(request);
-    String email = jwtGerador.getUsernameFromJWT(bearerToken);
-
-    System.out.println("email: " + email);
 
     if (!aluno.isPresent()) {
       List<String> mensagensErro = List.of("Aluno não encontrado!");
@@ -103,10 +96,5 @@ public class AlunoController {
     alunoService.deletarRegistro(email);
 
     return new ResponseEntity<>("Aluno excluído com sucesso!", HttpStatus.OK);
-  }
-
-  @GetMapping
-  public ResponseEntity<String> teste() {
-    return new ResponseEntity<>("Aluno TESTEEEE com sucesso!", HttpStatus.OK);
   }
 }

@@ -1,5 +1,7 @@
 package com.carometro.security;
 
+import java.io.IOException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -12,12 +14,11 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.io.IOException;
 
 public class JWTAuthenticationFilter extends OncePerRequestFilter {
 
   @Autowired
-  private JWTGerador tokenGenerator;
+  private JWTGerador jwtGerador;
 
   @Autowired
   private CustomUserDetailsService customUserDetailsService;
@@ -29,8 +30,8 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
       FilterChain filterChain) throws ServletException, IOException {
 
     String token = getJWTFromRequest(request);
-    if (StringUtils.hasText(token) && tokenGenerator.validateToken(token)) {
-      String username = tokenGenerator.getUsernameFromJWT(token);
+    if (StringUtils.hasText(token) && jwtGerador.validateToken(token)) {
+      String username = jwtGerador.getUsernameFromJWT(token);
 
       UserDetails userDetails = customUserDetailsService.loadUserByUsername(username);
       UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userDetails,

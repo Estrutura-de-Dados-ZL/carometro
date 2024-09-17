@@ -10,13 +10,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class AlunoDto {
 
-  @NotNull
   private Long id;
   private String ra;
   private String nome;
 
   @NotNull
   private String email;
+
   private String senha;
   private String foto;
   private String link;

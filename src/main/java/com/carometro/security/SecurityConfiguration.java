@@ -41,6 +41,10 @@ public class SecurityConfiguration {
 
     http.addFilterBefore(jwtAuthenticationFilter(),
         UsernamePasswordAuthenticationFilter.class);
+
+    http.addFilterBefore(emailVerificationFilter(),
+        UsernamePasswordAuthenticationFilter.class);
+
     return http.build();
   }
 
@@ -58,5 +62,10 @@ public class SecurityConfiguration {
   @Bean
   JWTAuthenticationFilter jwtAuthenticationFilter() {
     return new JWTAuthenticationFilter();
+  }
+
+  @Bean
+  EmailVerificationFilter emailVerificationFilter() {
+    return new EmailVerificationFilter();
   }
 }
