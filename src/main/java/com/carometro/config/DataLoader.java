@@ -9,8 +9,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.carometro.model.Curso;
 import com.carometro.model.Role;
 import com.carometro.model.Usuario;
+import com.carometro.repository.CursoRepository;
 import com.carometro.repository.RoleRepository;
 import com.carometro.repository.UsuarioRepository;
 
@@ -27,31 +29,67 @@ public class DataLoader implements CommandLineRunner {
     private UsuarioRepository usuarioRepository;
 
     @Autowired
+    private CursoRepository cursoRepository;
+
+    @Autowired
     private PasswordEncoder passwordEncoder;
 
     @Override
     @Transactional
     public void run(String... args) throws Exception {
         // Criar roles
-        Role roleAdmin = new Role();
-        roleAdmin.setNome("ADMIN");
-        roleRepository.save(roleAdmin);
-
-        Role roleUser = new Role();
-        roleUser.setNome("USER");
-        roleRepository.save(roleUser);
+        criarRole("ADMIN");
+        criarRole("USER");
 
         // Criar conta administrador
-        Usuario administrador = new Usuario();
-        administrador.setEmail("admin@admin.com");
-        administrador.setSenha(passwordEncoder.encode("admin1234"));
+        int[] rolesId = { 1 };
+        criarUsuario("admin@admin.com", "admin1234", rolesId);
 
-        Role role = roleRepository.getReferenceById(1);
-        List<Role> roles = new ArrayList<>();
-        roles.add(role);
-        administrador.setRoles(roles);
-        
-        usuarioRepository.save(administrador);
+        // Criar cursos
+        String[] cursos = {
+                "Análise e Desenvolvimento de Sistemas",
+                "AMS – Análise e Desenvolvimento de Sistemas",
+                "Comércio Exterior",
+                "Desenvolvimento de Produtos Plásticos",
+                "Desenvolvimento de Software Multiplataforma",
+                "Gestão de Recursos Humanos",
+                "Logística",
+                "Polímeros",
+                "Gestão Empresarial"
+        };
+        for (String curso : cursos) {
+            criarCurso(curso);
+        }
     }
 
+    private void criarRole(String roleName) {
+        if (!roleRepository.existsByNome(roleName)) {
+            Role role = new Role();
+            role.setNome(roleName);
+            roleRepository.save(role);
+        }
+    }
+
+    private void criarUsuario(String email, String password, int[] rolesId) {
+        if (!usuarioRepository.existsByEmail(email)) {
+            Usuario administrador = new Usuario();
+            administrador.setEmail(email);
+            administrador.setSenha(passwordEncoder.encode(password));
+            List<Role> roles = new ArrayList<>();
+            for (int roleId : rolesId) {
+                Role role = roleRepository.getReferenceById(roleId);
+                roles.add(role);
+            }
+            administrador.setRoles(roles);
+            usuarioRepository.save(administrador);
+        }
+    }
+
+    private void criarCurso(String cursoNome) {
+        if (!cursoRepository.existsByNome(cursoNome)) {
+            Curso cursoNovo = new Curso();
+            cursoNovo.setNome(cursoNome);
+            cursoRepository.save(cursoNovo);
+        }
+    }
 }

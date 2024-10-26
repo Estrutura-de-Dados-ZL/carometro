@@ -8,4 +8,6 @@ import com.carometro.model.Role;
 
 public interface RoleRepository extends JpaRepository<Role, Integer> {
   Optional<Role> findByNome(String nome);
+
+  boolean existsByNome(String nome);
 }
