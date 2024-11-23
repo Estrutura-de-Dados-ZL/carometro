@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.carometro.dto.AlunoDto;
 import com.carometro.dto.ApiRespostaDto;
 import com.carometro.mapper.AlunoMapper;
+import com.carometro.mapper.AlunoSpecification;
 import com.carometro.model.Aluno;
 import com.carometro.security.JWTGerador;
 import com.carometro.service.AlunoService;
@@ -41,8 +42,8 @@ public class AlunoController {
   JWTGerador jwtGerador;
 
   @GetMapping("/buscarTodos")
-  public ResponseEntity<List<Aluno>> listarAlunos() {
-    return new ResponseEntity<>(alunoService.buscarTodosRegistros(), HttpStatus.OK);
+  public ResponseEntity<List<Aluno>> listarAlunos(AlunoSpecification specification) {
+    return new ResponseEntity<>(alunoService.buscarTodosRegistros(specification), HttpStatus.OK);
   }
 
   @GetMapping("/{email}")
