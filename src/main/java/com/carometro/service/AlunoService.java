@@ -4,9 +4,10 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
+import com.carometro.mapper.AlunoSpecifications;
 import com.carometro.dto.CadastroAlunoDto;
 import com.carometro.model.Aluno;
 import com.carometro.model.Role;
@@ -51,6 +52,16 @@ public class AlunoService implements IService<Aluno, String> {
   @Override
   public List<Aluno> buscarTodosRegistros() {
     return alunoRepository.findAll();
+  }
+
+  public List<Aluno> buscarTodosRegistros(String nome, String ano, String semestre, String curso) {
+    Specification<Aluno> spec = Specification.where(AlunoSpecifications.nomeEquals(nome))
+        .and(AlunoSpecifications.anoEquals(ano))
+        .and(AlunoSpecifications.semestreEquals(semestre))
+        .and(AlunoSpecifications.cursoEquals(curso))
+        .and(AlunoSpecifications.usuario("Usuario"));
+
+    return alunoRepository.findAll(spec);
   }
 
   public boolean validarEmailExistente(CadastroAlunoDto cadastroDto) {

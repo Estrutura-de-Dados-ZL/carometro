@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.carometro.dto.AlunoDto;
@@ -41,8 +42,11 @@ public class AlunoController {
   JWTGerador jwtGerador;
 
   @GetMapping("/buscarTodos")
-  public ResponseEntity<List<Aluno>> listarAlunos() {
-    return new ResponseEntity<>(alunoService.buscarTodosRegistros(), HttpStatus.OK);
+  public ResponseEntity<List<Aluno>> listarAlunos(@RequestParam(value = "aluno", required = false) String aluno,
+      @RequestParam(value = "ano", required = false) String ano,
+      @RequestParam(value = "semestre", required = false) String semestre,
+      @RequestParam(value = "curso", required = false) String curso) {
+    return new ResponseEntity<>(alunoService.buscarTodosRegistros(aluno, ano, semestre, curso), HttpStatus.OK);
   }
 
   @GetMapping("/{email}")
