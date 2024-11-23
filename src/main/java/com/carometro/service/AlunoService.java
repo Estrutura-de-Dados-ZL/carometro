@@ -54,8 +54,7 @@ public class AlunoService implements IService<Aluno, String> {
   }
 
   public List<Aluno> buscarTodosRegistros(AlunoSpecification specification) {
-    List<Aluno> alunos = alunoRepository.findAll(specification);
-    return alunos;
+    return alunoRepository.findAll(specification);
   }
 
   public boolean validarEmailExistente(CadastroAlunoDto cadastroDto) {
