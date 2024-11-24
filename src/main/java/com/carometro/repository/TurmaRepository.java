@@ -8,5 +8,4 @@ import com.carometro.model.TurmaId;
 
 @Repository
 public interface TurmaRepository extends JpaRepository<Turma, TurmaId> {
-
 }

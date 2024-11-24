@@ -44,9 +44,10 @@ public class SecurityConfiguration {
         .exceptionHandling((eH) -> eH.authenticationEntryPoint(authEntryPoint))
         .sessionManagement((session) -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
         .authorizeHttpRequests((authz) -> authz
-            .requestMatchers("/api/auth/**").permitAll()  // Public endpoint for authentication
+            .requestMatchers("/api/auth/**").permitAll() // Public endpoint for authentication
 
-            // Uncomment the lines below to enable authentication for all requests except GET requests.
+            // Uncomment the lines below to enable authentication for all requests except
+            // GET requests.
             // .requestMatchers(HttpMethod.GET, "/aluno/**").permitAll()
             // .requestMatchers(HttpMethod.GET, "/comentario/**").permitAll()
             // .requestMatchers(HttpMethod.GET, "/curso/**").permitAll()
@@ -54,14 +55,13 @@ public class SecurityConfiguration {
             // .requestMatchers(HttpMethod.GET, "/turma/**").permitAll()
 
             // Uncomment the lines below to disable authentication.
-            .requestMatchers( "/aluno/**").permitAll()
-            .requestMatchers( "/comentario/**").permitAll()
-            .requestMatchers( "/curso/**").permitAll()
-            .requestMatchers( "/experiencia/**").permitAll()
-            .requestMatchers( "/turma/**").permitAll()
+            .requestMatchers("/aluno/**").permitAll()
+            .requestMatchers("/comentario/**").permitAll()
+            .requestMatchers("/curso/**").permitAll()
+            .requestMatchers("/experiencia/**").permitAll()
+            .requestMatchers("/turma/**").permitAll()
 
-
-            .anyRequest().authenticated());  // Protect all other endpoints
+            .anyRequest().authenticated()); // Protect all other endpoints
 
     // Add custom filters before UsernamePasswordAuthenticationFilter
     http.addFilterBefore(jwtAuthenticationFilter(),

@@ -12,6 +12,9 @@ import com.carometro.model.Aluno;
 import com.carometro.model.Role;
 import com.carometro.repository.AlunoRepository;
 
+import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
+
 @Service
 public class AlunoService implements IService<Aluno, String> {
 
@@ -40,12 +43,18 @@ public class AlunoService implements IService<Aluno, String> {
     alunoRepository.save(aluno);
   }
 
+  @Transactional
   @Override
   public void deletarRegistro(String email) {
-    Aluno aluno = new Aluno();
-    aluno.setEmail(email);
-
-    alunoRepository.delete(aluno);
+    Optional<Aluno> aluno = alunoRepository.findByEmail(email);
+    if (aluno.isPresent()) {
+      // Directly delete associations from the user_role table
+      aluno.get().setRoles(null);
+      alunoRepository.save(aluno.get());
+      alunoRepository.delete(aluno.get());
+    } else {
+      throw new EntityNotFoundException("Aluno não encontrado");
+    }
   }
 
   @Override

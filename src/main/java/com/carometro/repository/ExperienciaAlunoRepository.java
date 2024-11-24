@@ -7,5 +7,4 @@ import com.carometro.model.ExperienciaAluno;
 
 @Repository
 public interface ExperienciaAlunoRepository extends JpaRepository<ExperienciaAluno, Long> {
-
 }
