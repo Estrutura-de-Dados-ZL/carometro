@@ -2,11 +2,13 @@ package com.carometro.service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.carometro.mapper.AlunoSpecification;
+import com.carometro.dto.AlunoDetailsDto;
 import com.carometro.dto.CadastroAlunoDto;
 import com.carometro.model.Aluno;
 import com.carometro.model.Role;
@@ -56,14 +58,21 @@ public class AlunoService implements IService<Aluno, String> {
       throw new EntityNotFoundException("Aluno não encontrado");
     }
   }
-
+  
   @Override
   public List<Aluno> buscarTodosRegistros() {
     return alunoRepository.findAll();
   }
 
-  public List<Aluno> buscarTodosRegistros(AlunoSpecification specification) {
-    return alunoRepository.findAll(specification);
+  public List<AlunoDetailsDto> buscarTodosRegistros(AlunoSpecification specification) {
+    List<Aluno> x = alunoRepository.findAll(specification);
+    return parseAlunoDto(x);
+  }
+
+  public List<AlunoDetailsDto> parseAlunoDto(List<Aluno> alunos){
+    return alunos.stream().map(aluno -> new AlunoDetailsDto(aluno.getId(), aluno.getRa(), aluno.getNome(), aluno.getEmail(), aluno.getFoto(), 
+    aluno.getLink(), aluno.getComentario(), aluno.getCampoLivre(), aluno.getPermissaoDados(), aluno.getPendente())).toList();
+    
   }
 
   public boolean validarEmailExistente(CadastroAlunoDto cadastroDto) {
