@@ -110,13 +110,13 @@ public class DataLoader implements CommandLineRunner {
                         "https://paul-link.com", "RA22347", "9", "2024", "1" },
                 { "david.brown@example.com", "David Brown", "senha101", "Campo livre 4", "Comentário 4",
                         "https://img.freepik.com/fotos-gratis/feche-o-retrato-de-um-rosto-jovem-barbudo_171337-2887.jpg?semt=ais_hybrid",
-                        "https://david-link.com", "RA22348", "1", "2024", "2" },
+                        "https://david-link.com", "RA22348", "1", "2024", "1" },
                 { "james.johnson@example.com", "James Johnson", "senha202", "Campo livre 5", "Comentário 5",
                         "https://img.freepik.com/fotos-gratis/feche-o-retrato-de-um-rosto-jovem-barbudo_171337-2887.jpg?semt=ais_hybrid",
-                        "https://james-link.com", "RA22349", "2", "2024", "2" },
+                        "https://james-link.com", "RA22349", "2", "2024", "1" },
                 { "michael.martin@example.com", "Michael Martin", "senha303", "Campo livre 6", "Comentário 6",
                         "https://img.freepik.com/fotos-gratis/feche-o-retrato-de-um-rosto-jovem-barbudo_171337-2887.jpg?semt=ais_hybrid",
-                        "https://michael-link.com", "RA22350", "3", "2024", "2" }
+                        "https://michael-link.com", "RA22350", "3", "2024", "1" }
         };
         for (String[] aluno : alunos) {
             atualizarAluno(aluno, rolesAlunoId);
