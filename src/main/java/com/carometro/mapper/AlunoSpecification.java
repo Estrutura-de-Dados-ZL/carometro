@@ -53,7 +53,7 @@ public class AlunoSpecification implements Specification<Aluno> {
                                                                                 .get("semestre")),
                                                                 "%" + s.toLowerCase() + "%")));
 
-                // Filtragem de curso (acessando Turma > curso)
+                // Filtragem de curso (acessando Turma > curso > nome)
                 Optional.ofNullable(curso)
                                 .filter(StringUtils::hasText)
                                 .ifPresent(c -> predicates
