@@ -14,9 +14,7 @@ public class AlunoDetailsDto {
   private Long id;
   private String ra;
   private String nome;
-
   private String email;
-
   private String foto;
   private String link;
   private String comentario;
